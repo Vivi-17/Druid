@@ -109,35 +109,29 @@ impl TodoList {
     }
 
     fn add(&self, todo: TodoItem) {
-       // self.items.to_vec().push(todo);
-       // self.items.lock().unwrap().to_vec().push(todo);
-       // self.items.clone().lock().unwrap().push(todo);
-
-        let cond =  self.items.clone().lock();
-        match cond {
+        let cond =  self.items.clone();
+        match cond.lock() {
             Ok(mut v) => {
+                println!("[ADD] todo: {}", todo.title);
                 v.push(todo);
-                println!("[ADD] it worked");
             }
             Err(e) => {
                 eprintln!("[ADD] it didnt worked due to: {:?}", e);
             }
-        }
+        };
     }
 
     fn remove(&self, todo: TodoItem) {
-       // self.items.clone().lock().unwrap().retain(|x| *x != todo);
-
-        let cond =  self.items.clone().lock();
-        match cond {
+        let cond =  self.items.clone();
+        match cond.lock() {
             Ok(mut v) => {
-                v.retain(|v| *v != .. );
-                println!("[REMOVE] it worked");
+                println!("[REMOVE] todo: {}", todo.title);
+                v.retain(|v| *v != todo);
             }
             Err(e) => {
                 eprintln!("[REMOVE] it didnt worked due to: {:?}", e);
             }
-        }
+        };
     }
 
     fn list_to_string(&self) -> String {
