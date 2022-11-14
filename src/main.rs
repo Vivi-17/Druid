@@ -20,23 +20,35 @@ fn build_ui() -> impl Widget<()> {
         debug_timestamp: 0
     };
 
+    let todo_def = TodoItem {
+        category: Category::Default,
+        title: "Something default".to_string(),
+        note: Option::from("Nothing special.".to_string()),
+        completed: false,
+        debug_timestamp: 0
+    };
+
+    let mut list = Vec::new();
     let todo_list = TodoList::create();
 
     println!("TEST 1");
 
-    todo_list.add(todo_play);
+    list.push(todo_school);
+    list.push(todo_def);
 
-    todo_list.add(todo_school);
+    todo_list.add_list(&mut list);
+
+    todo_list.add(todo_play);
 
     println!("TEST 2");
 
-    todo_list.remove(TodoItem {
+    /*todo_list.remove(TodoItem {
         category: Category::Play,
         title: "Play something".to_string(),
         note: Option::from("Anything.".to_string()),
         completed: false,
         debug_timestamp: 0
-    });
+    });*/
 
     println!("TEST 3");
 
@@ -88,7 +100,6 @@ impl TodoList {
     fn create() -> TodoList {
         TodoList {
             items: Arc::new(Mutex::new(Vec::from([])))
-           // items: Arc::new(vec![])
         }
     }
 
@@ -101,6 +112,21 @@ impl TodoList {
             }
             Err(e) => {
                 eprintln!("[ADD] it didnt worked due to: {:?}", e);
+            }
+        };
+    }
+
+    fn add_list(&self, todo_list: &mut Vec<TodoItem>) {
+        let cond =  self.items.clone();
+        match cond.lock() {
+            Ok(mut v) => {
+                for todo in todo_list.iter() {
+                    println!("[ADD_LIST] todo: {}", todo.title);
+                }
+                v.append(todo_list);
+            }
+            Err(e) => {
+                eprintln!("[ADD_LIST] it didnt worked due to: {:?}", e);
             }
         };
     }
