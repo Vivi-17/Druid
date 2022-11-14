@@ -36,13 +36,13 @@ fn build_ui() -> impl Widget<()> {
 
     println!("TEST 1");
 
-    todo_list.add_todo(todo_play);
+    todo_list.add(todo_play);
 
-    todo_list.add_todo(todo_school);
+    todo_list.add(todo_school);
 
     println!("TEST 2");
 
-    todo_list.remove_todo(TodoItem {
+    todo_list.remove(TodoItem {
         category: Category::Play,
         title: "Play something".to_string(),
         note: Option::from("Anything.".to_string()),
@@ -108,7 +108,7 @@ impl TodoList {
         }
     }
 
-    fn add_todo(&self, todo: TodoItem) {
+    fn add(&self, todo: TodoItem) {
        // self.items.to_vec().push(todo);
        // self.items.lock().unwrap().to_vec().push(todo);
        // self.items.clone().lock().unwrap().push(todo);
@@ -125,7 +125,7 @@ impl TodoList {
         }
     }
 
-    fn remove_todo(&self, todo: TodoItem) {
+    fn remove(&self, todo: TodoItem) {
        // self.items.clone().lock().unwrap().retain(|x| *x != todo);
 
         let cond =  self.items.clone().lock();
