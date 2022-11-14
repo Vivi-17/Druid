@@ -3,7 +3,6 @@ use druid::{AppLauncher, Data, WindowDesc, Widget, PlatformError};
 use druid::widget::{Align, Flex, Label, Padding};
 
 fn build_ui() -> impl Widget<()> {
-    //Label::new("Hello world");
 
     let todo_school = TodoItem {
         category: Category::Work,
@@ -21,17 +20,6 @@ fn build_ui() -> impl Widget<()> {
         debug_timestamp: 0
     };
 
-    /*let list = TodoList {
-      items: Arc::new(Vec::from([todo_school, todo_play]))
-    };
-
-    let mut text_list = String::new();
-    for item in list.items.iter() {
-        text_list.push_str(&("- ".to_owned() + &item.title + "\n"));
-    }*/
-
-    /*let binding = TodoList {items: Arc::new(Vec::from([todo_school, todo_play]))};
-    let todo_list = TodoList::create(&binding);*/
     let todo_list = TodoList::create();
 
     println!("TEST 1");
@@ -93,13 +81,9 @@ contains( 'todo' )
 /// The main model for a todo list application.
 struct TodoList {
     items: Arc<Mutex<Vec<TodoItem>>>,
-    //items: Arc<Vec<TodoItem>>,
 }
 
 impl TodoList {
-    /*fn create(&self) -> &Arc<Vec<TodoItem>> {
-        &self.items
-    }*/
 
     fn create() -> TodoList {
         TodoList {
