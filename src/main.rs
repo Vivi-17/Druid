@@ -50,7 +50,7 @@ fn build_ui() -> impl Widget<()> {
         debug_timestamp: 0
     });*/
 
-    println!("TEST 3");
+    println!("TEST 3 - len: {}", todo_list.len());
 
     let text_list = todo_list.list_to_string();
 
@@ -79,8 +79,6 @@ fn main() -> Result<(), PlatformError> {
 //TODO: more methods!
 /*
 sort( 'condition' )
-add( 'list of todos' )
-len()
 clear()
 contains( 'todo' )
 [get( 'index' )] -> rather a hashmap
@@ -113,6 +111,10 @@ impl TodoList {
 
     fn remove(&self, todo: TodoItem) {
         self.items.clone().lock().unwrap().retain(|x| *x != todo);
+    }
+
+    fn len(&self) -> usize {
+        self.items.clone().lock().unwrap().len()
     }
 
     fn list_to_string(&self) -> String {
