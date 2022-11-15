@@ -38,6 +38,8 @@ fn build_ui() -> impl Widget<()> {
 
     todo_list.add_list(&mut list);
 
+    todo_list.clear();
+
     todo_list.add(todo_play);
 
     println!("TEST 2");
@@ -79,7 +81,6 @@ fn main() -> Result<(), PlatformError> {
 //TODO: more methods!
 /*
 sort( 'condition' )
-clear()
 contains( 'todo' )
 [get( 'index' )] -> rather a hashmap
 [set( 'index' )] -> rather a hashmap
@@ -115,6 +116,10 @@ impl TodoList {
 
     fn len(&self) -> usize {
         self.items.lock().unwrap().len()
+    }
+
+    fn clear(&self) {
+        self.items.lock().unwrap().clear();
     }
 
     fn list_to_string(&self) -> String {
