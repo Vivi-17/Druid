@@ -102,29 +102,29 @@ impl TodoList {
     }
 
     fn add(&self, todo: TodoItem) {
-        self.items.clone().lock().unwrap().push(todo);
+        self.items.lock().unwrap().push(todo);
     }
 
     fn add_list(&self, todo_list: &mut Vec<TodoItem>) {
-        self.items.clone().lock().unwrap().append(todo_list);
+        self.items.lock().unwrap().append(todo_list);
     }
 
     fn remove(&self, todo: TodoItem) {
-        self.items.clone().lock().unwrap().retain(|x| *x != todo);
+        self.items.lock().unwrap().retain(|x| *x != todo);
     }
 
     fn len(&self) -> usize {
-        self.items.clone().lock().unwrap().len()
+        self.items.lock().unwrap().len()
     }
 
     fn list_to_string(&self) -> String {
 
-        if self.items.clone().lock().unwrap().is_empty() {
+        if self.items.lock().unwrap().is_empty() {
             println!("LIST IS EMPTY");
         }
 
         let mut text_list = String::new();
-        for item in self.items.clone().lock().unwrap().iter() {
+        for item in self.items.lock().unwrap().iter() {
             println!("ITEM: {}", item.title);
             text_list.push_str(&("- ".to_owned() + &item.title + "\n"));
         }
