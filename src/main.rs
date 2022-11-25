@@ -1,8 +1,8 @@
 mod testing;
 
-use druid::{AppLauncher, PlatformError, Widget, WindowDesc};
-use druid::widget::{Align, Flex, Label, Padding};
-use crate::testing::list::*;
+use druid::{AppLauncher, Data, Env, Lens, PlatformError, UnitPoint, Widget, WidgetExt, WindowDesc};
+use druid::widget::{Align, Button, Flex, Label, Padding, TextBox};
+use crate::testing::{list::*, text_box::*};
 
 fn build_ui() -> impl Widget<()> {
     let todo_school = TodoItem {
@@ -75,6 +75,22 @@ fn build_ui() -> impl Widget<()> {
 }
 
 fn main() -> Result<(), PlatformError> {
-    AppLauncher::with_window(WindowDesc::new(build_ui())).launch(())?;
+    //AppLauncher::with_window(WindowDesc::new(build_ui())).launch(())?;   //old one (-> TodoList)
+
+    let main_window = WindowDesc::new(build_root_widget())
+        .title("Hello World!")
+        .window_size((400.0, 400.0));
+
+    // create the initial app state
+    let initial_state: HelloState = HelloState {
+        name: "World".into(),
+    };
+
+    // start the application. Here we pass in the application state.
+    AppLauncher::with_window(main_window)
+        .log_to_console()
+        .launch(initial_state)
+        .expect("Failed to launch application");
+
     Ok(())
 }
